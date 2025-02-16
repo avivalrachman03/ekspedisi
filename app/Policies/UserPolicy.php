@@ -18,7 +18,9 @@ class UserPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_user');
+        if ($user->hasRole('super-admin')) {
+            return $user->can('view_any_user');
+        }
     }
 
     /**

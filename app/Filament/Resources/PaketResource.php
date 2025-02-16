@@ -291,7 +291,10 @@ class PaketResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    ExportBulkAction::make()->exporter(PaketExporter::class)->label('Export Laporan'),
+                    ExportBulkAction::make()
+                        ->exporter(PaketExporter::class)
+                        ->label('Export Laporan')
+                        ->fileDisk('public'),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);

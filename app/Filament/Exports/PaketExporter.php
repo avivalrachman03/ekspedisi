@@ -61,7 +61,7 @@ class PaketExporter extends Exporter
     public function getXlsxCellStyle(): ?Style
     {
         return (new Style())
-        ->setFontSize(7)
-        ->setShouldWrapText(true);
+            ->setFontSize(7)
+            ->setShouldWrapText(true);
     }
 }
