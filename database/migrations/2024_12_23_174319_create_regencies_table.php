@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('regencies', function (Blueprint $table) {
-            $table->unsignedSmallInteger('id')->autoIncrement()->index();
-            $table->unsignedTinyInteger('province_id');
+            $table->unsignedBigInteger('id')->autoIncrement()->index();
+            $table->unsignedBigInteger('province_id');
             $table->string('name', 50)->nullable(false);
             $table->string('code', 5)->nullable(false);
             $table->unsignedBigInteger('harga')->nullable(false);
