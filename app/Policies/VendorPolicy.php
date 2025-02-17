@@ -2,23 +2,19 @@
 
 namespace App\Policies;
 
-use App\Models\User;
+use Illuminate\Auth\Access\Response;
 use App\Models\Vendor;
-use Illuminate\Auth\Access\HandlesAuthorization;
+use App\Models\User;
 
 class VendorPolicy
 {
-    use HandlesAuthorization;
-
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        if ($user->role_id == 1) {
-            return true;
-            // return $user->can('view_any_vendor');
-        }
+        // return $user->checkPermissionTo('view-any Vendor');
+        return $user->hasRole(['Admin', 'Karyawan']);
     }
 
     /**
@@ -26,7 +22,7 @@ class VendorPolicy
      */
     public function view(User $user, Vendor $vendor): bool
     {
-        return $user->can('view_vendor');
+        return $user->checkPermissionTo('view Vendor');
     }
 
     /**
@@ -34,7 +30,7 @@ class VendorPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_vendor');
+        return $user->checkPermissionTo('create Vendor');
     }
 
     /**
@@ -42,7 +38,7 @@ class VendorPolicy
      */
     public function update(User $user, Vendor $vendor): bool
     {
-        return $user->can('update_vendor');
+        return $user->checkPermissionTo('update Vendor');
     }
 
     /**
@@ -50,62 +46,62 @@ class VendorPolicy
      */
     public function delete(User $user, Vendor $vendor): bool
     {
-        return $user->can('delete_vendor');
+        return $user->checkPermissionTo('delete Vendor');
     }
 
     /**
-     * Determine whether the user can bulk delete.
+     * Determine whether the user can delete any models.
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_vendor');
+        return $user->checkPermissionTo('delete-any Vendor');
     }
 
     /**
-     * Determine whether the user can permanently delete.
-     */
-    public function forceDelete(User $user, Vendor $vendor): bool
-    {
-        return $user->can('force_delete_vendor');
-    }
-
-    /**
-     * Determine whether the user can permanently bulk delete.
-     */
-    public function forceDeleteAny(User $user): bool
-    {
-        return $user->can('force_delete_any_vendor');
-    }
-
-    /**
-     * Determine whether the user can restore.
+     * Determine whether the user can restore the model.
      */
     public function restore(User $user, Vendor $vendor): bool
     {
-        return $user->can('restore_vendor');
+        return $user->checkPermissionTo('restore Vendor');
     }
 
     /**
-     * Determine whether the user can bulk restore.
+     * Determine whether the user can restore any models.
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_vendor');
+        return $user->checkPermissionTo('restore-any Vendor');
     }
 
     /**
-     * Determine whether the user can replicate.
+     * Determine whether the user can replicate the model.
      */
     public function replicate(User $user, Vendor $vendor): bool
     {
-        return $user->can('replicate_vendor');
+        return $user->checkPermissionTo('replicate Vendor');
     }
 
     /**
-     * Determine whether the user can reorder.
+     * Determine whether the user can reorder the models.
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_vendor');
+        return $user->checkPermissionTo('reorder Vendor');
+    }
+
+    /**
+     * Determine whether the user can permanently delete the model.
+     */
+    public function forceDelete(User $user, Vendor $vendor): bool
+    {
+        return $user->checkPermissionTo('force-delete Vendor');
+    }
+
+    /**
+     * Determine whether the user can permanently delete any models.
+     */
+    public function forceDeleteAny(User $user): bool
+    {
+        return $user->checkPermissionTo('force-delete-any Vendor');
     }
 }

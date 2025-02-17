@@ -2,20 +2,19 @@
 
 namespace App\Policies;
 
-use App\Models\User;
+use Illuminate\Auth\Access\Response;
 use App\Models\Regency;
-use Illuminate\Auth\Access\HandlesAuthorization;
+use App\Models\User;
 
 class RegencyPolicy
 {
-    use HandlesAuthorization;
-
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_regency');
+        // return $user->checkPermissionTo('view-any Regency');
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -23,7 +22,8 @@ class RegencyPolicy
      */
     public function view(User $user, Regency $regency): bool
     {
-        return $user->can('view_regency');
+        // return $user->checkPermissionTo('view Regency');
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -31,7 +31,8 @@ class RegencyPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_regency');
+        // return $user->checkPermissionTo('create Regency');
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -39,7 +40,8 @@ class RegencyPolicy
      */
     public function update(User $user, Regency $regency): bool
     {
-        return $user->can('update_regency');
+        // return $user->checkPermissionTo('update Regency');
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -47,62 +49,64 @@ class RegencyPolicy
      */
     public function delete(User $user, Regency $regency): bool
     {
-        return $user->can('delete_regency');
+        // return $user->checkPermissionTo('delete Regency');
+        return $user->hasRole('Admin');
     }
 
     /**
-     * Determine whether the user can bulk delete.
+     * Determine whether the user can delete any models.
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_regency');
+        // return $user->checkPermissionTo('delete-any Regency');
+        return $user->hasRole('Admin');
     }
 
     /**
-     * Determine whether the user can permanently delete.
-     */
-    public function forceDelete(User $user, Regency $regency): bool
-    {
-        return $user->can('force_delete_regency');
-    }
-
-    /**
-     * Determine whether the user can permanently bulk delete.
-     */
-    public function forceDeleteAny(User $user): bool
-    {
-        return $user->can('force_delete_any_regency');
-    }
-
-    /**
-     * Determine whether the user can restore.
+     * Determine whether the user can restore the model.
      */
     public function restore(User $user, Regency $regency): bool
     {
-        return $user->can('restore_regency');
+        return $user->checkPermissionTo('restore Regency');
     }
 
     /**
-     * Determine whether the user can bulk restore.
+     * Determine whether the user can restore any models.
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_regency');
+        return $user->checkPermissionTo('restore-any Regency');
     }
 
     /**
-     * Determine whether the user can replicate.
+     * Determine whether the user can replicate the model.
      */
     public function replicate(User $user, Regency $regency): bool
     {
-        return $user->can('replicate_regency');
+        return $user->checkPermissionTo('replicate Regency');
     }
 
     /**
-     * Determine whether the user can reorder.
+     * Determine whether the user can reorder the models.
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_regency');
+        return $user->checkPermissionTo('reorder Regency');
+    }
+
+    /**
+     * Determine whether the user can permanently delete the model.
+     */
+    public function forceDelete(User $user, Regency $regency): bool
+    {
+        return $user->checkPermissionTo('force-delete Regency');
+    }
+
+    /**
+     * Determine whether the user can permanently delete any models.
+     */
+    public function forceDeleteAny(User $user): bool
+    {
+        return $user->checkPermissionTo('force-delete-any Regency');
     }
 }

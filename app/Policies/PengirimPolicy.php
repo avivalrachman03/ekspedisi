@@ -2,20 +2,19 @@
 
 namespace App\Policies;
 
-use App\Models\User;
+use Illuminate\Auth\Access\Response;
 use App\Models\Pengirim;
-use Illuminate\Auth\Access\HandlesAuthorization;
+use App\Models\User;
 
 class PengirimPolicy
 {
-    use HandlesAuthorization;
-
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_pengirim');
+        // return $user->checkPermissionTo('view-any Pengirim');
+        return $user->hasRole(['Admin', 'Karyawan']);
     }
 
     /**
@@ -23,7 +22,8 @@ class PengirimPolicy
      */
     public function view(User $user, Pengirim $pengirim): bool
     {
-        return $user->can('view_pengirim');
+        // return $user->checkPermissionTo('view Pengirim');
+        return $user->hasRole(['Admin', 'Karyawan']);
     }
 
     /**
@@ -31,7 +31,8 @@ class PengirimPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_pengirim');
+        // return $user->checkPermissionTo('create Pengirim');
+        return $user->hasRole(['Admin', 'Karyawan']);
     }
 
     /**
@@ -39,7 +40,8 @@ class PengirimPolicy
      */
     public function update(User $user, Pengirim $pengirim): bool
     {
-        return $user->can('update_pengirim');
+        // return $user->checkPermissionTo('update Pengirim');
+        return $user->hasRole(['Admin', 'Karyawan']);
     }
 
     /**
@@ -47,62 +49,64 @@ class PengirimPolicy
      */
     public function delete(User $user, Pengirim $pengirim): bool
     {
-        return $user->can('delete_pengirim');
+        // return $user->checkPermissionTo('delete Pengirim');
+        return $user->hasRole(['Admin', 'Karyawan']);
     }
 
     /**
-     * Determine whether the user can bulk delete.
+     * Determine whether the user can delete any models.
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_pengirim');
+        // return $user->checkPermissionTo('delete-any Pengirim');
+        return $user->hasRole('Admin');
     }
 
     /**
-     * Determine whether the user can permanently delete.
-     */
-    public function forceDelete(User $user, Pengirim $pengirim): bool
-    {
-        return $user->can('force_delete_pengirim');
-    }
-
-    /**
-     * Determine whether the user can permanently bulk delete.
-     */
-    public function forceDeleteAny(User $user): bool
-    {
-        return $user->can('force_delete_any_pengirim');
-    }
-
-    /**
-     * Determine whether the user can restore.
+     * Determine whether the user can restore the model.
      */
     public function restore(User $user, Pengirim $pengirim): bool
     {
-        return $user->can('restore_pengirim');
+        return $user->checkPermissionTo('restore Pengirim');
     }
 
     /**
-     * Determine whether the user can bulk restore.
+     * Determine whether the user can restore any models.
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_pengirim');
+        return $user->checkPermissionTo('restore-any Pengirim');
     }
 
     /**
-     * Determine whether the user can replicate.
+     * Determine whether the user can replicate the model.
      */
     public function replicate(User $user, Pengirim $pengirim): bool
     {
-        return $user->can('replicate_pengirim');
+        return $user->checkPermissionTo('replicate Pengirim');
     }
 
     /**
-     * Determine whether the user can reorder.
+     * Determine whether the user can reorder the models.
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_pengirim');
+        return $user->checkPermissionTo('reorder Pengirim');
+    }
+
+    /**
+     * Determine whether the user can permanently delete the model.
+     */
+    public function forceDelete(User $user, Pengirim $pengirim): bool
+    {
+        return $user->checkPermissionTo('force-delete Pengirim');
+    }
+
+    /**
+     * Determine whether the user can permanently delete any models.
+     */
+    public function forceDeleteAny(User $user): bool
+    {
+        return $user->checkPermissionTo('force-delete-any Pengirim');
     }
 }

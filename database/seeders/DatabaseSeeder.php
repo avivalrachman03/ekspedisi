@@ -19,13 +19,25 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        $user = User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'ardi@admin.com',
-            'password' => 'adminku'
-        ]);
-        $role = Role::create(['name' => 'Admin']);
-        $user->assignRole($role);
+        $admin = User::factory()->create(
+            [
+                'name' => 'Admin',
+                'email' => 'ardi@admin.com',
+                'password' => 'adminku'
+            ]
+            
+        );
+        $karyawan = User::factory()->create(
+            [
+                'name' => 'Karyawan',
+                'email' => 'karyawan@user.com',
+                'password' => 'karyawanku'
+            ]
+            );
+        $role1 = Role::create(['name' => 'Admin']);
+        $role2 = Role::create(['name' => 'Karyawan']);
+        $admin->assignRole($role1);
+        $karyawan->assignRole($role2);
         $this->call([
             ProvinceSeeder::class,
             RegencySeeder::class,

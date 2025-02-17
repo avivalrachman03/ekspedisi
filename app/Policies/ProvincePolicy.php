@@ -2,20 +2,19 @@
 
 namespace App\Policies;
 
-use App\Models\User;
+use Illuminate\Auth\Access\Response;
 use App\Models\Province;
-use Illuminate\Auth\Access\HandlesAuthorization;
+use App\Models\User;
 
 class ProvincePolicy
 {
-    use HandlesAuthorization;
-
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_province');
+        // return $user->checkPermissionTo('view-any Province');
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -23,7 +22,8 @@ class ProvincePolicy
      */
     public function view(User $user, Province $province): bool
     {
-        return $user->can('view_province');
+        // return $user->checkPermissionTo('view Province');
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -31,7 +31,8 @@ class ProvincePolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_province');
+        // return $user->checkPermissionTo('create Province');
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -39,7 +40,8 @@ class ProvincePolicy
      */
     public function update(User $user, Province $province): bool
     {
-        return $user->can('update_province');
+        // return $user->checkPermissionTo('update Province');
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -47,62 +49,66 @@ class ProvincePolicy
      */
     public function delete(User $user, Province $province): bool
     {
-        return $user->can('delete_province');
+        // return $user->checkPermissionTo('delete Province');
+        return $user->hasRole('Admin');
     }
 
     /**
-     * Determine whether the user can bulk delete.
+     * Determine whether the user can delete any models.
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_province');
+        // return $user->checkPermissionTo('delete-any Province');
+        return $user->hasRole('Admin');
     }
 
     /**
-     * Determine whether the user can permanently delete.
-     */
-    public function forceDelete(User $user, Province $province): bool
-    {
-        return $user->can('force_delete_province');
-    }
-
-    /**
-     * Determine whether the user can permanently bulk delete.
-     */
-    public function forceDeleteAny(User $user): bool
-    {
-        return $user->can('force_delete_any_province');
-    }
-
-    /**
-     * Determine whether the user can restore.
+     * Determine whether the user can restore the model.
      */
     public function restore(User $user, Province $province): bool
     {
-        return $user->can('restore_province');
+        // return $user->checkPermissionTo('restore Province');
+        return $user->hasRole('Admin');
     }
 
     /**
-     * Determine whether the user can bulk restore.
+     * Determine whether the user can restore any models.
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_province');
+        // return $user->checkPermissionTo('restore-any Province');
+        return $user->hasRole('Admin');
     }
 
     /**
-     * Determine whether the user can replicate.
+     * Determine whether the user can replicate the model.
      */
     public function replicate(User $user, Province $province): bool
     {
-        return $user->can('replicate_province');
+        return $user->checkPermissionTo('replicate Province');
     }
 
     /**
-     * Determine whether the user can reorder.
+     * Determine whether the user can reorder the models.
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_province');
+        return $user->checkPermissionTo('reorder Province');
+    }
+
+    /**
+     * Determine whether the user can permanently delete the model.
+     */
+    public function forceDelete(User $user, Province $province): bool
+    {
+        return $user->checkPermissionTo('force-delete Province');
+    }
+
+    /**
+     * Determine whether the user can permanently delete any models.
+     */
+    public function forceDeleteAny(User $user): bool
+    {
+        return $user->checkPermissionTo('force-delete-any Province');
     }
 }
