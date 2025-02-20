@@ -29,10 +29,10 @@ class RolePolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user)
     {
         // return $user->can('create_role');
-        return $user->hasRole('Admin');
+        // return $user->hasRole('Admin');
     }
 
     /**

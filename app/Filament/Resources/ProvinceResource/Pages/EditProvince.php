@@ -10,6 +10,11 @@ class EditProvince extends EditRecord
 {
     protected static string $resource = ProvinceResource::class;
 
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+
     protected function getHeaderActions(): array
     {
         return [

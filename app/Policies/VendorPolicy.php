@@ -30,7 +30,8 @@ class VendorPolicy
      */
     public function create(User $user): bool
     {
-        return $user->checkPermissionTo('create Vendor');
+        // return $user->checkPermissionTo('create Vendor');
+        return $user->hasRole(['Admin', 'Karyawan']);
     }
 
     /**
@@ -38,7 +39,8 @@ class VendorPolicy
      */
     public function update(User $user, Vendor $vendor): bool
     {
-        return $user->checkPermissionTo('update Vendor');
+        // return $user->checkPermissionTo('update Vendor');
+        return $user->hasRole(['Admin', 'Karyawan']);
     }
 
     /**
@@ -46,7 +48,8 @@ class VendorPolicy
      */
     public function delete(User $user, Vendor $vendor): bool
     {
-        return $user->checkPermissionTo('delete Vendor');
+        // return $user->checkPermissionTo('delete Vendor');
+        return $user->hasRole('Admin');
     }
 
     /**

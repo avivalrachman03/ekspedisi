@@ -38,7 +38,9 @@ class UserResource extends Resource
                     ->preload(),
                 Forms\Components\TextInput::make('password')
                     ->password()
-                    ->required(),
+                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                    ->dehydrated(fn ($state) => filled($state))
+                    ->required(fn (string $context): bool => $context === 'create')
             ]);
     }
 

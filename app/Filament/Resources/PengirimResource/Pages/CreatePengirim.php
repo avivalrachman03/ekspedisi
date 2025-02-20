@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreatePengirim extends CreateRecord
 {
     protected static string $resource = PengirimResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }
