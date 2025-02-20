@@ -38,11 +38,11 @@ class DatabaseSeeder extends Seeder
         $role2 = Role::create(['name' => 'Karyawan']);
         $admin->assignRole($role1);
         $karyawan->assignRole($role2);
-        $this->call([
-            ProvinceSeeder::class,
-            RegencySeeder::class,
-            VendorSeeder::class,
-            // PengirimSeeder::class,
-        ]);
+        // $this->call([
+        //     ProvinceSeeder::class,
+        //     RegencySeeder::class,
+        //     VendorSeeder::class,
+        //     // PengirimSeeder::class,
+        // ]);
     }
 }
